@@ -1,0 +1,6 @@
+---
+mysql_host: 192.168.1.88
+mysql_db: dbinventory
+mysql_port: 3306
+mysql_user: ansible
+mysql_password: redhat123

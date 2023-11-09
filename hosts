@@ -1,0 +1,14 @@
+[Windows]
+192.168.1.184
+
+[RHEL]
+192.168.1.61
+
+[Windows:vars]
+ansible_user=administrator
+ansible_password=P@ssw0rd
+ansible_port=5985
+ansible_connection=winrm
+ansible_winrm_transport=credssp
+ansible_winrm_server_cert_validation=ignore
+

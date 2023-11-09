@@ -1,0 +1,10 @@
+---
+- name: Install pymysql
+  pip:
+    name: pymysql
+    executable: pip3
+
+- name: Install pymssql
+  pip:
+    name: pymssql
+    executable: pip3
