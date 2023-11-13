@@ -10,11 +10,11 @@
 
   - name: Select query to mysql with named_args
     community.mysql.mysql_query:
-      login_host: 192.168.1.88
-      login_db: dbinventory
-      login_port: 3306
-      login_user: ansible
-      login_password: redhat123
+      login_host: '{{ mysql_host }}'
+      login_db: '{{ mysql_db }}'
+      login_port: '{{ mysql_port }}'
+      login_user: '{{ mysql_user }}'
+      login_password: '{{ mysql_password }}'
       query: select hostname, port, username, password from dbauthentication where db = 'mssqlserver'
     register: cred_result
 
@@ -52,11 +52,11 @@
 
   - name: Record sqlserver information
     community.mysql.mysql_query:
-      login_host: 192.168.1.88
-      login_db: dbinventory
-      login_port: 3306
-      login_user: ansible
-      login_password: redhat123
+      login_host: '{{ mysql_host }}'
+      login_db: '{{ mysql_db }}'
+      login_port: '{{ mysql_port }}'
+      login_user: '{{ mysql_user }}'
+      login_password: '{{ mysql_password }}'
       query:
       - INSERT INTO dbinventory (db,hostname,version,productversion,productlevel,edition,size,vcpu,allocatedmemory,osmemory,ipaddress,port,recordtime) VALUES (%(db_val)s,%(hostname_val)s ,%(version_val)s,%(productversion_val)s,%(productlevel_val)s,%(edition_val)s,%(size_val)s,%(vcpu_val)s,%(allocatedmemory_val)s,%(osmemory_val)s,%(ipaddress_val)s,%(port_val)s,%(recordtime_val)s)
       named_args:
