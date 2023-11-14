@@ -1,0 +1,17 @@
+---
+- hosts: Windows
+  gather_facts: false
+  tasks:
+
+  - name: Copy sqlserver query file
+    ansible.windows.win_copy:
+      src: files/sqlserverinfo.sql
+      dest: "c:\\patch"
+
+  - name: Runs SQL script
+    ansible.windows.win_shell: Invoke-Sqlcmd -InputFile "c:\\patch\\sqlserverinfo.sql"
+    register: sqlserver_info
+
+  - name: sqlserver_info
+    debug:
+      msg: '{{ sqlserver_info.stdout_lines }}'

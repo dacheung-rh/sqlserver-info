@@ -45,10 +45,28 @@
           port_val: '{{ db_info[11] }}'
           recordtime_val: '{{ db_info[12] }}'
         single_transaction: true
+      register: update_result
+
+    - name: update sqlserver query status
+      set_fact:
+        resultA: 'Retrieve SQL server information {{ item.hostname }} with port {{ item.port }} successful.'
+
+    - name: append status to sqlserver_query_results
+      set_fact:
+        sqlserver_query_results: '{{ sqlserver_query_results + [ resultA ] }}'
+
   when: sqlserver_info is not failed
 
-- name: sqlserver_info temp failed
-  debug:
-    msg: 'Retrieve SQL server information {{ item.hostname }} with port {{ item.port }} failed. {{ sqlserver_info.msg }}'
+- name: sqlserver_info retrieve failed
+  set_fact:
+    resultB: 'Retrieve SQL server information {{ item.hostname }} with port {{ item.port }} failed. {{ sqlserver_info.msg }}'
   when: sqlserver_info is failed
- 
+
+- name: append status to sqlserver_query_results
+  set_fact:
+    sqlserver_query_results: '{{ sqlserver_query_results + [ resultB ] }}'
+  when: sqlserver_info is failed
+
+- name: sqlserver_info results
+  debug:
+    msg: '{{ sqlserver_query_results }}'

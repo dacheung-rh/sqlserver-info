@@ -16,6 +16,11 @@
 #   debug:
 #     msg: '{{ creds.query_result[0] }}'
 
+- name: initialize query result
+  set_fact:
+    sqlserver_query_results: []
+
 - include_tasks: process_query_result.yml
   loop: "{{ creds.query_result[0] }}"
+  no_log: true
 
